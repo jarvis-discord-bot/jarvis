@@ -1,0 +1,17 @@
+name: Deploy to fly.io
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - run: flyctl deploy --remote-only -e JARVIS_BOT_TOKEN="${{ secrets.JARVIS_BOT_TOKEN2 }}" -e JARVIS_API_ENABLED=false -e JARVIS_ADDRESS="0.0.0.0" -e JARVIS_PORT=8080 -e JARVIS_SQL_DSN="${{ secrets.JARVIS_SQL_DSN }}" --ha=false
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}

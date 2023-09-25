@@ -1,0 +1,21 @@
+# fly.toml app configuration file generated for jarvis-bot-12345 on 2023-09-23T19:44:24+01:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "jarvis-bot-12345"
+primary_region = "lhr"
+
+[build]
+
+[checks]
+  [checks.ping]
+    port = 8080
+    type = "http"
+    interval = "1m0s"
+    timeout = "10s"
+    grace_period = "30s"
+    method = "get"
+    path = "/ping"
+    [checks.ping.headers]
+      Content-Type = "application/json"
